@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Input;
 
 namespace InkWriter
 {
@@ -13,6 +12,13 @@ namespace InkWriter
             this.DataContext = new ViewModels.MainWindowViewModel();
 
             InitializeComponent();
+
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                this.Topmost = false;
+                this.WindowStyle = WindowStyle.ToolWindow;
+                this.WindowState = WindowState.Normal;
+            }
         }
     }
 }

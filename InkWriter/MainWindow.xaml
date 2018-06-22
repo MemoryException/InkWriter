@@ -137,11 +137,12 @@
             <Button Command="{Binding SaveDocumentCommand}"  Width="50" Height="50" Template="{StaticResource RoundButtonTemplate}" ToolTip="Save document">
                 <Label FontFamily="Wingdings" FontSize="22" Foreground="DarkBlue"></Label>
             </Button>
-            <Button Command="{Binding CopyToClipboardCommand}"  Width="50" Height="50" Template="{StaticResource RoundButtonTemplate}" ToolTip="Copy to clipboard">
-                <Label FontFamily="Wingdings" FontSize="22" Foreground="DarkBlue"></Label>
-            </Button>
             <Button Command="{Binding PrintCommand}" Width="50" Height="50" Template="{StaticResource RoundButtonTemplate}" ToolTip="Print">
                 <Label FontFamily="Wingdings 2" FontSize="22" Foreground="DarkBlue">6</Label>
+            </Button>
+            <Rectangle VerticalAlignment="Stretch" Width="1" Margin="2" Stroke="Black" />
+            <Button Command="{Binding CopyToClipboardCommand}"  Width="50" Height="50" Template="{StaticResource RoundButtonTemplate}" ToolTip="Copy to clipboard">
+                <Label FontFamily="Wingdings 2" FontSize="22" Foreground="DarkBlue">2</Label>
             </Button>
             <Rectangle VerticalAlignment="Stretch" Width="1" Margin="2" Stroke="Black" />
             <Button Command="{Binding FirstPageCommand}"  Width="50" Height="50" Template="{StaticResource RoundButtonTemplate}">

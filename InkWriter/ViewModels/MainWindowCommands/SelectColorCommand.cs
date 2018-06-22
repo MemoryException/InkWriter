@@ -38,7 +38,7 @@ namespace InkWriter.ViewModels.MainWindowCommands
 
             Window window = new Window();
             window.Opacity = 0;
-            Point upperLeftPoint = button.TransformToAncestor(Application.Current.MainWindow).Transform(new Point(0, 0));
+            Point upperLeftPoint = button.PointToScreen(new Point(0, 0));
             window.Left = upperLeftPoint.X;
             window.Top = upperLeftPoint.Y + 50;
             window.WindowStyle = WindowStyle.None;

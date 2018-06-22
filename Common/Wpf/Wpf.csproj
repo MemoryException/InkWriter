@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Animations.cs" />
     <Compile Include="BaseViewModel.cs" />
+    <Compile Include="DpiUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GuiAccessor.cs" />
   </ItemGroup>

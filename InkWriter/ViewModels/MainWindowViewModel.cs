@@ -8,7 +8,6 @@ using System.Windows.Controls;
 using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Wpf;
 
@@ -100,13 +99,7 @@ namespace InkWriter.ViewModels
 
             this.CopyToClipboardCommand = new CopyToClipboardCommand(() =>
             {
-                Image img = this.document?.ActivePage?.Image;
-                if (img == null)
-                {
-                    return null;
-                }
-
-                return (BitmapSource)img.Source;
+                return this.document?.ActivePage?.GetBitmap(null);
             });
 
             this.CloseApplicationCommand = new CloseApplicationCommand(this, this.document, this.settings);
