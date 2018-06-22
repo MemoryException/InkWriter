@@ -13,7 +13,7 @@ namespace InkWriter.ViewModels.MainWindowCommands
         private InkWriterSettings settings;
 
         private MainWindowViewModel mainWindow;
-        
+
         public event EventHandler CanExecuteChanged;
 
         public CloseApplicationCommand(MainWindowViewModel mainWindow, InkWriterDocument document, InkWriterSettings settings)
@@ -25,6 +25,8 @@ namespace InkWriter.ViewModels.MainWindowCommands
             this.document = document;
             this.settings = settings;
             this.mainWindow = mainWindow;
+
+            this.CanExecuteChanged?.Invoke(this, new EventArgs());
         }
 
         public void ResetDocument(InkWriterDocument documentToSet)

@@ -45,6 +45,38 @@ namespace InkWriter.Data
             }
         }
 
+        internal void Clear()
+        {
+            this.UnsubscribePageModifiedEvents();
+            this.Pages.Clear();
+            this.activePageIndex = -1;
+            this.AddNewPage();
+            this.FilePath = string.Empty;
+            this.IsDirty = false;
+        }
+
+        internal void AddNewPage()
+        {
+            this.Pages.Insert(this.ActivePageIndex + 1, new Data.Page(this));
+            this.ActivePageIndex = this.ActivePageIndex + 1;
+        }
+
+        internal void RemovePage(Page activePage)
+        {
+            activePage.PageModified -= this.OnPageModified;
+
+            this.Pages.Remove(activePage);
+            this.IsDirty = true;
+        }
+
+        private void UnsubscribePageModifiedEvents()
+        {
+            foreach (Page page in this.Pages)
+            {
+                page.PageModified -= this.OnPageModified;
+            }
+        }
+
         public void OnPageModified(object sender, PageModifiedEventArgs e)
         {
             this.IsDirty = true;

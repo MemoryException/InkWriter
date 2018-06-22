@@ -180,6 +180,7 @@
     <Compile Include="ViewModels\CapturePictureCommands\ToggleCaptureCommand.cs" />
     <Compile Include="ViewModels\CapturePictureCommands\ZoomImageCommand.cs" />
     <Compile Include="ViewModels\CapturePictureViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowCommands\CreateNewDocumentCommand.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\MainWindowCommands\CapturePictureCommand.cs" />
     <Compile Include="ViewModels\MainWindowCommands\CloseApplicationCommand.cs" />

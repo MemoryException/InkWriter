@@ -30,11 +30,7 @@ namespace InkWriter.ViewModels.MainWindowCommands
         {
             Safeguard.EnsureNotNull("newDocument", newDocument);
 
-            if (this.document != null)
-            {
-                this.document.PageChanged -= this.OnDocumentPageChanged;
-            }
-
+            this.document.PageChanged -= this.OnDocumentPageChanged;
             this.document = newDocument;
             this.document.PageChanged += this.OnDocumentPageChanged;
         }

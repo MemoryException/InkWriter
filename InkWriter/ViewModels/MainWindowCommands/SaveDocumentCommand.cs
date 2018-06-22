@@ -18,6 +18,7 @@ namespace InkWriter.ViewModels.MainWindowCommands
             Safeguard.EnsureNotNull("document", document);
 
             this.document = document;
+            this.CanExecuteChanged?.Invoke(this, new EventArgs());
         }
 
         public void ResetDocument(InkWriterDocument newDocument)
@@ -34,15 +35,18 @@ namespace InkWriter.ViewModels.MainWindowCommands
 
         public void Execute(object parameter)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Title = "Save document...";
-            saveFileDialog.RestoreDirectory = true;
-            saveFileDialog.OverwritePrompt = true;
-            saveFileDialog.InitialDirectory = !string.IsNullOrEmpty(document.FilePath) ? Path.GetDirectoryName(document.FilePath) : string.Empty;
-            saveFileDialog.FileName = Path.GetFileName(document.FilePath);
-            saveFileDialog.DefaultExt = "iwd";
-            saveFileDialog.AddExtension = true;
-            saveFileDialog.Filter = "InkWriterDocuments (*.iwd)|*.iwd";
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Title = "Save document...",
+                RestoreDirectory = true,
+                OverwritePrompt = true,
+                InitialDirectory = !string.IsNullOrEmpty(document.FilePath) ? Path.GetDirectoryName(document.FilePath) : string.Empty,
+                FileName = Path.GetFileName(document.FilePath),
+                DefaultExt = "iwd",
+                AddExtension = true,
+                Filter = "InkWriterDocuments (*.iwd)|*.iwd"
+            };
+
             if (saveFileDialog.ShowDialog() == true)
             {
                 this.document.Save(saveFileDialog.FileName);

@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
+using Utilities;
 
 namespace Wpf
 {
@@ -9,52 +10,46 @@ namespace Wpf
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        /// <summary>Gets the name of the property.</summary>
-        /// <typeparam name="T">The type.</typeparam>
-        /// <param name="propertyExpression">The lambda expression of the property.</param>
-        /// <returns>The property name</returns>
         protected static string GetPropertyName<T>(Expression<Func<T>> propertyExpression)
         {
-            if (propertyExpression == null)
+            Safeguard.EnsureNotNull("propertyExpression", propertyExpression);
+
+            MemberExpression memberExpression = null;
+            if (propertyExpression.Body is UnaryExpression unary)
             {
-                throw new ArgumentNullException("propertyExpression", "The property expression is null");
+                memberExpression = (MemberExpression)unary.Operand;
+            }
+            else
+            {
+                memberExpression = (MemberExpression)propertyExpression.Body;
             }
 
-            // Note: UnaryExpression is used to work with value types.
-            MemberExpression memberExpression = (MemberExpression)((propertyExpression.Body is UnaryExpression)
-                  ? ((UnaryExpression)propertyExpression.Body).Operand : propertyExpression.Body);
-            string name = memberExpression.Member.Name;
-            if (string.IsNullOrEmpty(name))
+            string propertyName = memberExpression.Member.Name;
+            if (string.IsNullOrEmpty(propertyName))
             {
-                throw new ArgumentException("Failed to get the property name ", "propertyExpression");
+                throw new InvalidOperationException("Failed to get property name.");
             }
 
-            return name;
+            return propertyName;
         }
 
-        /// <summary>Invokes the property change event.</summary>
-        /// <param name="propertyName">Name of the property to change.</param>
         protected void InvokePropertyChanged(string propertyName)
         {
             int propertyCount = (from properties in
-                                    this.GetType().GetProperties().AsParallel()
+                this.GetType().GetProperties().AsParallel()
                                  where properties.Name == propertyName
                                  select properties).Count();
+
             if (propertyCount == 1)
             {
                 this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }
             else
             {
-                throw new ArgumentOutOfRangeException(
-                   "propertyName",
-                   "BaseViewModel.InvokeNotifyPropertyChange: Property " + propertyName + " not exist");
+                throw new InvalidOperationException("Property not found.");
             }
         }
 
-        /// <summary>Invokes the notify property change.</summary>
-        /// <typeparam name="T">The property type</typeparam>
-        /// <param name="propertyExpression">The property expression.</param>
         protected void InvokePropertyChanged<T>(Expression<Func<T>> propertyExpression)
         {
             string propertyName = GetPropertyName(propertyExpression);

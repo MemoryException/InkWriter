@@ -17,7 +17,7 @@ namespace InkWriter.Algorithms
         private Bitmap workingBitmap = null;
         private int width = 0;
         private BitmapData bitmapData = null;
-        private Byte* pBase = null;
+        private Byte* basePointer = null;
 
         public FastBitmap(Bitmap inputBitmap)
         {
@@ -26,22 +26,20 @@ namespace InkWriter.Algorithms
 
         public void LockImage()
         {
-            //Size
             Rectangle bounds = new Rectangle(Point.Empty, workingBitmap.Size);
 
             width = (int)(bounds.Width * sizeof(PixelData));
             if (width % 4 != 0) width = 4 * (width / 4 + 1);
 
-            //Lock Image
             bitmapData = workingBitmap.LockBits(bounds, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
-            pBase = (Byte*)bitmapData.Scan0.ToPointer();
+            basePointer = (Byte*)bitmapData.Scan0.ToPointer();
         }
 
         private PixelData* pixelData = null;
 
-        public Color GetPixel(int x, int y)
+        public Color GetPixel(int left, int top)
         {
-            pixelData = (PixelData*)(pBase + y * width + x * sizeof(PixelData));
+            pixelData = (PixelData*)(basePointer + top * width + left * sizeof(PixelData));
             return Color.FromArgb(pixelData->alpha, pixelData->red, pixelData->green, pixelData->blue);
         }
 
@@ -53,7 +51,7 @@ namespace InkWriter.Algorithms
 
         public void SetPixel(int x, int y, Color color)
         {
-            PixelData* data = (PixelData*)(pBase + y * width + x * sizeof(PixelData));
+            PixelData* data = (PixelData*)(basePointer + y * width + x * sizeof(PixelData));
             data->alpha = color.A;
             data->green = color.G;
             data->blue = color.B;
@@ -64,7 +62,7 @@ namespace InkWriter.Algorithms
         {
             workingBitmap.UnlockBits(bitmapData);
             bitmapData = null;
-            pBase = null;
+            basePointer = null;
         }
     }
 }
