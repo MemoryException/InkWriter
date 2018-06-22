@@ -1,0 +1,151 @@
+﻿<UserControl x:Class="InkWriter.Views.CapturePictureView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:local="clr-namespace:InkWriter.Views"
+             xmlns:behaviors="clr-namespace:InkWriter.Behaviors"
+             xmlns:converters="clr-namespace:InkWriter.Converters" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             Background="LightGray">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:AddDoubleConverter x:Key="AddDoubleConverter" />
+        <converters:StateConverter x:Key="StateConverter" />
+        <ControlTemplate x:Key="RoundButtonTemplate">
+            <Grid>
+                <Ellipse x:Name="OuterCircle" Width="40" Height="40" Stroke="DarkBlue" StrokeThickness="2">
+                    <Ellipse.Fill>
+                        <SolidColorBrush Color="White" />
+                    </Ellipse.Fill>
+                </Ellipse>
+                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Content="{TemplateBinding Button.Content}" />
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Button.IsPressed" Value="true">
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="0.9" ScaleY="0.9" />
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <ControlTemplate x:Key="BigRoundButtonTemplate">
+            <Grid>
+                <Ellipse x:Name="OuterCircle" Width="70" Height="70" Stroke="DarkBlue" StrokeThickness="2">
+                    <Ellipse.Fill>
+                        <SolidColorBrush Color="White" />
+                    </Ellipse.Fill>
+                </Ellipse>
+                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Content="{TemplateBinding Button.Content}" />
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Button.IsPressed" Value="true">
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="0.9" ScaleY="0.9" />
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
+                </Trigger>
+                <Trigger Property="Button.IsEnabled" Value="false">
+                    <Setter Property="Opacity" Value="0.1"/>
+                </Trigger>
+                <Trigger Property="Button.IsEnabled" Value="true">
+                    <Setter Property="Opacity" Value="0.7"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Row="0" Background="LightGray">
+            <Button Command="{Binding CloseCommand}"  Width="50" Height="50" Template="{StaticResource RoundButtonTemplate}">
+                <Label FontFamily="Webdings" FontSize="22" Foreground="DarkBlue"></Label>
+            </Button>
+        </StackPanel>
+
+        <Grid Background="Black" Grid.Row="1">
+            <Image Source="{Binding Image}" Stretch="{Binding ImageStretchMode}">
+                <i:Interaction.Behaviors>
+                    <behaviors:ReflectDimensionsBehavior ElementWidth="{Binding ImageWidth, Mode=OneWayToSource}" ElementHeight="{Binding ImageHeight, Mode=OneWayToSource}" />
+                </i:Interaction.Behaviors>
+            </Image>
+
+            <Canvas Visibility="{Binding ShowGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Line Opacity="0.5" Canvas.Left="0" Canvas.Top="0" X1="{Binding UpperLeftPoint.X}" Y1="{Binding UpperLeftPoint.Y}" X2="{Binding UpperRightPoint.X}" Y2="{Binding UpperRightPoint.Y}" Stroke="White" StrokeThickness="3" />
+                <Line Opacity="0.5" Canvas.Left="0" Canvas.Top="0" X1="{Binding BottomRightPoint.X}" Y1="{Binding BottomRightPoint.Y}" X2="{Binding UpperRightPoint.X}" Y2="{Binding UpperRightPoint.Y}" Stroke="White" StrokeThickness="3" />
+                <Line Opacity="0.5" Canvas.Left="0" Canvas.Top="0" X1="{Binding BottomLeftPoint.X}" Y1="{Binding BottomLeftPoint.Y}" X2="{Binding BottomRightPoint.X}" Y2="{Binding BottomRightPoint.Y}" Stroke="White" StrokeThickness="3" />
+                <Line Opacity="0.5" Canvas.Left="0" Canvas.Top="0" X1="{Binding UpperLeftPoint.X}" Y1="{Binding UpperLeftPoint.Y}" X2="{Binding BottomLeftPoint.X}" Y2="{Binding BottomLeftPoint.Y}" Stroke="White" StrokeThickness="3" />
+                <Line Canvas.Left="0" Canvas.Top="0" X1="{Binding UpperLeftPoint.X}" Y1="{Binding UpperLeftPoint.Y}" X2="{Binding UpperRightPoint.X}" Y2="{Binding UpperRightPoint.Y}" Stroke="Black" StrokeThickness="1" />
+                <Line Canvas.Left="0" Canvas.Top="0" X1="{Binding BottomRightPoint.X}" Y1="{Binding BottomRightPoint.Y}" X2="{Binding UpperRightPoint.X}" Y2="{Binding UpperRightPoint.Y}" Stroke="Black" StrokeThickness="1" />
+                <Line Canvas.Left="0" Canvas.Top="0" X1="{Binding BottomLeftPoint.X}" Y1="{Binding BottomLeftPoint.Y}" X2="{Binding BottomRightPoint.X}" Y2="{Binding BottomRightPoint.Y}" Stroke="Black" StrokeThickness="1" />
+                <Line Canvas.Left="0" Canvas.Top="0" X1="{Binding UpperLeftPoint.X}" Y1="{Binding UpperLeftPoint.Y}" X2="{Binding BottomLeftPoint.X}" Y2="{Binding BottomLeftPoint.Y}" Stroke="Black" StrokeThickness="1" />
+
+                <Rectangle Opacity="0.5" Width="50" Height="50" RadiusX="10" RadiusY="10" Canvas.Left="{Binding UpperLeftPoint.X, Converter={StaticResource AddDoubleConverter}, ConverterParameter=-25}" Canvas.Top="{Binding UpperLeftPoint.Y, Converter={StaticResource AddDoubleConverter}, ConverterParameter=-25}" Fill="White" Stroke="Black" StrokeThickness="2">
+                    <i:Interaction.Behaviors>
+                        <behaviors:MoveBehavior Position="{Binding UpperLeftPoint}" />
+                    </i:Interaction.Behaviors>
+                </Rectangle>
+                <Rectangle Opacity="0.5" Width="50" Height="50" RadiusX="10" RadiusY="10" Canvas.Left="{Binding UpperRightPoint.X, Converter={StaticResource AddDoubleConverter}, ConverterParameter=-25}" Canvas.Top="{Binding UpperRightPoint.Y, Converter={StaticResource AddDoubleConverter}, ConverterParameter=-25}" Fill="White" Stroke="Black" StrokeThickness="2">
+                    <i:Interaction.Behaviors>
+                        <behaviors:MoveBehavior Position="{Binding UpperRightPoint}" />
+                    </i:Interaction.Behaviors>
+                </Rectangle>
+                <Rectangle Opacity="0.5" Width="50" Height="50" RadiusX="10" RadiusY="10" Canvas.Left="{Binding BottomLeftPoint.X, Converter={StaticResource AddDoubleConverter}, ConverterParameter=-25}" Canvas.Top="{Binding BottomLeftPoint.Y, Converter={StaticResource AddDoubleConverter}, ConverterParameter=-25}" Fill="White" Stroke="Black" StrokeThickness="2">
+                    <i:Interaction.Behaviors>
+                        <behaviors:MoveBehavior Position="{Binding BottomLeftPoint}" />
+                    </i:Interaction.Behaviors>
+                </Rectangle>
+                <Rectangle Opacity="0.5" Width="50" Height="50" RadiusX="10" RadiusY="10" Canvas.Left="{Binding BottomRightPoint.X, Converter={StaticResource AddDoubleConverter}, ConverterParameter=-25}" Canvas.Top="{Binding BottomRightPoint.Y, Converter={StaticResource AddDoubleConverter}, ConverterParameter=-25}" Fill="White" Stroke="Black" StrokeThickness="2">
+                    <i:Interaction.Behaviors>
+                        <behaviors:MoveBehavior Position="{Binding BottomRightPoint}" />
+                    </i:Interaction.Behaviors>
+                </Rectangle>
+            </Canvas>
+        </Grid>
+
+        <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Right" Background="Transparent">
+            <Button Command="{Binding LoadImageCommand}" Template="{StaticResource BigRoundButtonTemplate}">
+                <Label FontSize="12" Foreground="DarkBlue" Content="Load..." />
+            </Button>
+            <Separator />
+            <Button Command="{Binding CutImageCommand}" Template="{StaticResource BigRoundButtonTemplate}">
+                <Label FontSize="12" Foreground="DarkBlue" Content="Cut" />
+            </Button>
+            <Separator />
+            <Button Command="{Binding ToggleVideoCommand}"  Template="{StaticResource BigRoundButtonTemplate}">
+                <Label FontSize="12" Foreground="DarkBlue" Content="{Binding State, Converter={StaticResource StateConverter}}" />
+            </Button>
+            <Separator />
+            <Button Command="{Binding SaveImageCommand}" Template="{StaticResource BigRoundButtonTemplate}">
+                <Label FontSize="12" Foreground="DarkBlue" Content="Save..." />
+            </Button>
+            <Separator />
+            <Button Command="{Binding EmbeddPictureCommand}" Template="{StaticResource BigRoundButtonTemplate}">
+                <Label FontSize="12" Foreground="DarkBlue" Content="Embedd" />
+            </Button>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" Background="Transparent">
+            <Button Command="{Binding IncreaseZoomCommand}" Template="{StaticResource BigRoundButtonTemplate}">
+                <Label FontSize="12" Foreground="DarkBlue" Content="+" />
+            </Button>
+            <Button Command="{Binding ResetZoomCommand}" Template="{StaticResource BigRoundButtonTemplate}">
+                <Label FontSize="12" Foreground="DarkBlue" Content="0" />
+            </Button>
+            <Button Command="{Binding DecreaseZoomCommand}" Template="{StaticResource BigRoundButtonTemplate}">
+                <Label FontSize="12" Foreground="DarkBlue" Content="-" />
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

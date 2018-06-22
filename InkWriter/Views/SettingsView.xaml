@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="InkWriter.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:InkWriter.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             Background="LightGray">
+
+    <UserControl.Resources>
+        <ControlTemplate x:Key="RoundButtonTemplate">
+            <Grid>
+                <Ellipse x:Name="OuterCircle" Width="40" Height="40" Stroke="DarkBlue" StrokeThickness="2">
+                    <Ellipse.Fill>
+                        <SolidColorBrush Color="White" />
+                    </Ellipse.Fill>
+                </Ellipse>
+                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"
+            Content="{TemplateBinding Button.Content}" />
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Button.IsPressed" Value="true">
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="0.9" ScaleY=".9" />
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="RenderTransformOrigin" Value=".5,.5" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Row="0" Background="LightGray">
+            <Button Command="{Binding CloseCommand}"  Width="50" Height="50" Template="{StaticResource RoundButtonTemplate}">
+                <Label FontFamily="Webdings" FontSize="22" Foreground="DarkBlue"></Label>
+            </Button>
+        </StackPanel>
+
+        
+    </Grid>
+</UserControl>
