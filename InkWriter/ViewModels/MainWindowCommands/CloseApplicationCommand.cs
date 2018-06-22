@@ -13,7 +13,7 @@ namespace InkWriter.ViewModels.MainWindowCommands
         private InkWriterSettings settings;
 
         private MainWindowViewModel mainWindow;
-
+        
         public event EventHandler CanExecuteChanged;
 
         public CloseApplicationCommand(MainWindowViewModel mainWindow, InkWriterDocument document, InkWriterSettings settings)

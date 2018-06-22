@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
 using System.Drawing.Imaging;
 
@@ -14,11 +12,6 @@ namespace InkWriter.Algorithms
             public byte green;
             public byte red;
             public byte alpha;
-
-            public override string ToString()
-            {
-                return "(" + alpha.ToString() + ", " + red.ToString() + ", " + green.ToString() + ", " + blue.ToString() + ")";
-            }
         }
 
         private Bitmap workingBitmap = null;
@@ -61,7 +54,7 @@ namespace InkWriter.Algorithms
         public void SetPixel(int x, int y, Color color)
         {
             PixelData* data = (PixelData*)(pBase + y * width + x * sizeof(PixelData));
-            data->alpha = color.A;            
+            data->alpha = color.A;
             data->green = color.G;
             data->blue = color.B;
             data->red = color.R;

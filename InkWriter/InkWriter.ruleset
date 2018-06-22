@@ -1,7 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<RuleSet Name="Rules for InkWriter" Description="Code analysis rules for InkWriter.csproj." ToolsVersion="14.0">
+<RuleSet Name="Rules for InkWriter" Description="Code analysis rules for InkWriter.csproj." ToolsVersion="15.0">
   <IncludeAll Action="Warning" />
   <Rules AnalyzerId="Microsoft.CodeAnalysis.CSharp" RuleNamespace="Microsoft.CodeAnalysis.CSharp">
+    <Rule Id="CS3001" Action="None" />
+    <Rule Id="CS3002" Action="None" />
+    <Rule Id="CS3003" Action="None" />
+    <Rule Id="CS3005" Action="None" />
+    <Rule Id="CS3006" Action="None" />
+    <Rule Id="CS3007" Action="None" />
+    <Rule Id="CS3008" Action="None" />
+    <Rule Id="CS3009" Action="None" />
+    <Rule Id="CS3010" Action="None" />
+    <Rule Id="CS3011" Action="None" />
+    <Rule Id="CS3012" Action="None" />
+    <Rule Id="CS3013" Action="None" />
+    <Rule Id="CS3014" Action="None" />
+    <Rule Id="CS3015" Action="None" />
+    <Rule Id="CS3016" Action="None" />
+    <Rule Id="CS3017" Action="None" />
+    <Rule Id="CS3018" Action="None" />
+    <Rule Id="CS3019" Action="None" />
+    <Rule Id="CS3021" Action="None" />
+    <Rule Id="CS3022" Action="None" />
+    <Rule Id="CS3023" Action="None" />
+    <Rule Id="CS3024" Action="None" />
+    <Rule Id="CS3026" Action="None" />
+    <Rule Id="CS3027" Action="None" />
     <Rule Id="CS7035" Action="None" />
   </Rules>
 </RuleSet>
