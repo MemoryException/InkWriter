@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InkWriter.Data;
+using System;
 using System.Windows.Input;
 using Utilities;
 
@@ -25,7 +26,7 @@ namespace InkWriter.ViewModels.MainWindowCommands
 
         public void Execute(object parameter)
         {
-            this.mainWindow.ShowGrid = !this.mainWindow.ShowGrid;
+            this.mainWindow.GridType = this.mainWindow.GridType.Next();
         }
     }
 }

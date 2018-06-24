@@ -21,12 +21,12 @@ namespace InkWriter.ViewModels
 
         private static Color SubstitutionColor = Colors.Black;
 
-        private bool showGrid;
         private bool dragDropInProgress;
         private Point initialDragPoint;
         private Point polledMouseCoords;
         private StrokeCollection strokesToMove;
         private bool fingerSelectionMode;
+        private GridTypeEnum gridType;
 
         public void FadeIn(EventHandler completedEvent)
         {
@@ -54,9 +54,12 @@ namespace InkWriter.ViewModels
             this.InkCanvas.MouseUp += this.OnInkCanvasMouseUp;
             this.InkCanvas.PreviewMouseUp += this.OnInkCanvasPreviewMouseUp;
             this.InkCanvas.AllowDrop = true;
-            this.InkCanvas.Gesture += HandleInkCanvasGesture;
+            this.InkCanvas.Gesture += this.HandleInkCanvasGesture;
 
             this.InkCanvas.EditingMode = InkCanvasEditingMode.None;
+
+            this.GridCanvas = InkWriter.Data.GridType.CreateCanvas();
+            this.GridType = GridTypeEnum.None;
 
             string[] commandLineArgs = Environment.GetCommandLineArgs();
             if (commandLineArgs.Length == 2)
@@ -68,18 +71,8 @@ namespace InkWriter.ViewModels
                 }
             }
 
-            if (this.document == null)
-            {
-                if (File.Exists("document.iwd"))
-                {
-                    this.document = InkWriterDocument.Load("document.iwd");
-                }
-                else
-                {
-                    this.document = new InkWriterDocument();
-                    this.document.Pages.Add(new Data.Page(this.document));
-                }
-            }
+            this.document = new InkWriterDocument();
+            this.document.Pages.Add(new Data.Page(this.document));
 
             this.document.PageChanged += this.OnDocumentPageChanged;
             this.document.ActivePageIndex = this.document.Pages.Count - 1;
@@ -263,23 +256,6 @@ namespace InkWriter.ViewModels
 
         public ToggleGridCommand ToggleGridCommand { get; private set; }
 
-        public bool ShowGrid
-        {
-            get
-            {
-                return this.showGrid;
-            }
-
-            set
-            {
-                if (value != this.showGrid)
-                {
-                    this.showGrid = value;
-                    this.InvokePropertyChanged(() => this.ShowGrid);
-                }
-            }
-        }
-
         private void OnDocumentPageChanged(object sender, Data.EventHandler.ActivePageChangedEventArgs e)
         {
             this.InkCanvas.Strokes.Clear();
@@ -410,6 +386,27 @@ namespace InkWriter.ViewModels
         }
 
         public InkCanvas InkCanvas { get; private set; }
+
+        public Canvas GridCanvas { get; private set; }
+
+        public GridTypeEnum GridType
+        {
+            get
+            {
+                return this.gridType;
+            }
+            set
+            {
+                if (value != this.gridType)
+                {
+                    this.gridType = value;
+                    this.gridType.UpdateCanvas(this.GridCanvas);
+                }
+
+                this.InvokePropertyChanged(() => this.GridType);
+                this.InvokePropertyChanged(() => this.GridCanvas);
+            }
+        }
 
         public void OnInkCanvasPreviewMouseDown(object sender, MouseEventArgs e)
         {

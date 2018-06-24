@@ -20,8 +20,7 @@
                         <SolidColorBrush Color="White" />
                     </Ellipse.Fill>
                 </Ellipse>
-                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"
-            Content="{TemplateBinding Button.Content}" />
+                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Content="{TemplateBinding Button.Content}" />
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="Button.IsPressed" Value="true">
@@ -103,33 +102,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <UserControl Grid.Row="1" Content="{Binding InkCanvas}" />
-        <Canvas Grid.Row="1" Visibility="{Binding ShowGrid, Converter={StaticResource BooleanVisibilityConverter}}">
-            <Line X1="0" X2="3000" Y1="050" Y2="050" Stroke="DarkSlateGray"/>
-            <Line X1="0" X2="3000" Y1="100" Y2="100" Stroke="DarkSlateGray"/>
-            <Line X1="0" X2="3000" Y1="150" Y2="150" Stroke="DarkSlateGray"/>
-            <Line X1="0" X2="3000" Y1="200" Y2="200" Stroke="DarkSlateGray"/>
-            <Line X1="0" X2="3000" Y1="250" Y2="250" Stroke="DarkSlateGray"/>
-            <Line X1="0" X2="3000" Y1="300" Y2="300" Stroke="DarkSlateGray"/>
-            <Line X1="0" X2="3000" Y1="350" Y2="350" Stroke="DarkSlateGray"/>
-            <Line X1="0" X2="3000" Y1="400" Y2="400" Stroke="DarkSlateGray"/>
-            <Line X1="0" X2="3000" Y1="450" Y2="450" Stroke="DarkSlateGray"/>
-            <Line X1="0" X2="3000" Y1="500" Y2="500" Stroke="DarkSlateGray"/>
-            <Line X1="0" X2="3000" Y1="550" Y2="550" Stroke="DarkSlateGray"/>
-            <Line X1="0" X2="3000" Y1="600" Y2="600" Stroke="DarkSlateGray"/>
-            <Line X1="0" X2="3000" Y1="650" Y2="650" Stroke="DarkSlateGray"/>
-            <Line X1="0" X2="3000" Y1="700" Y2="700" Stroke="DarkSlateGray"/>
-            <Line X1="0" X2="3000" Y1="750" Y2="750" Stroke="DarkSlateGray"/>
-            <Line X1="0" X2="3000" Y1="800" Y2="800" Stroke="DarkSlateGray"/>
-            <Line X1="0" X2="3000" Y1="850" Y2="850" Stroke="DarkSlateGray"/>
-            <Line X1="0" X2="3000" Y1="900" Y2="900" Stroke="DarkSlateGray"/>
-            <Line X1="0" X2="3000" Y1="950" Y2="950" Stroke="DarkSlateGray"/>
-            <Line X1="0" X2="3000" Y1="1000" Y2="1000" Stroke="DarkSlateGray"/>
-            <Line X1="0" X2="3000" Y1="1050" Y2="1050" Stroke="DarkSlateGray"/>
-            <Line X1="0" X2="3000" Y1="1100" Y2="1100" Stroke="DarkSlateGray"/>
-            <Line X1="0" X2="3000" Y1="1150" Y2="1150" Stroke="DarkSlateGray"/>
-            <Line X1="0" X2="3000" Y1="1200" Y2="1200" Stroke="DarkSlateGray"/>
-            <Line X1="0" X2="3000" Y1="1250" Y2="1250" Stroke="DarkSlateGray"/>
-        </Canvas>
+        <UserControl Grid.Row="1" Content="{Binding GridCanvas}"/>
         <StackPanel Orientation="Horizontal" Grid.Row="0" Background="LightGray">
             <Button Command="{Binding LoadDocumentCommand}"  Width="50" Height="50" Template="{StaticResource RoundButtonTemplate}" ToolTip="Load document">
                 <Label FontFamily="Wingdings" FontSize="22" Foreground="DarkBlue"></Label>
