@@ -26,7 +26,7 @@ namespace InkWriter.ViewModels
         private Point polledMouseCoords;
         private StrokeCollection strokesToMove;
         private bool fingerSelectionMode;
-        private GridTypeEnum gridType;
+        private GridType gridType;
 
         public void FadeIn(EventHandler completedEvent)
         {
@@ -58,8 +58,7 @@ namespace InkWriter.ViewModels
 
             this.InkCanvas.EditingMode = InkCanvasEditingMode.None;
 
-            this.GridCanvas = InkWriter.Data.GridType.CreateCanvas();
-            this.GridType = GridTypeEnum.None;
+            this.GridType = GridType.None;
 
             string[] commandLineArgs = Environment.GetCommandLineArgs();
             if (commandLineArgs.Length == 2)
@@ -387,9 +386,7 @@ namespace InkWriter.ViewModels
 
         public InkCanvas InkCanvas { get; private set; }
 
-        public Canvas GridCanvas { get; private set; }
-
-        public GridTypeEnum GridType
+        public GridType GridType
         {
             get
             {
@@ -400,11 +397,9 @@ namespace InkWriter.ViewModels
                 if (value != this.gridType)
                 {
                     this.gridType = value;
-                    this.gridType.UpdateCanvas(this.GridCanvas);
                 }
 
                 this.InvokePropertyChanged(() => this.GridType);
-                this.InvokePropertyChanged(() => this.GridCanvas);
             }
         }
 

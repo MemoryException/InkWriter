@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InkWriter"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-        xmlns:converters="clr-namespace:InkWriter.Converters" 
+        xmlns:converters="clr-namespace:InkWriter.Converters"
+        xmlns:wpf="clr-namespace:Wpf;assembly=Wpf"
         mc:Ignorable="d"
         Title="InkWriter" WindowState="Maximized" WindowStyle="None" Icon="ApplicationIcon.ico"
         Background="Black"
@@ -102,7 +103,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <UserControl Grid.Row="1" Content="{Binding InkCanvas}" />
-        <UserControl Grid.Row="1" Content="{Binding GridCanvas}"/>
+        <wpf:GridCanvas Grid.Row="1" GridType="{Binding GridType}" GridColor="DarkSlateGray" GridSize="50" />
         <StackPanel Orientation="Horizontal" Grid.Row="0" Background="LightGray">
             <Button Command="{Binding LoadDocumentCommand}"  Width="50" Height="50" Template="{StaticResource RoundButtonTemplate}" ToolTip="Load document">
                 <Label FontFamily="Wingdings" FontSize="22" Foreground="DarkBlue"></Label>

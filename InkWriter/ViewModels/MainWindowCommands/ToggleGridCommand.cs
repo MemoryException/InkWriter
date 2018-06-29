@@ -1,7 +1,7 @@
-﻿using InkWriter.Data;
-using System;
+﻿using System;
 using System.Windows.Input;
 using Utilities;
+using Wpf;
 
 namespace InkWriter.ViewModels.MainWindowCommands
 {
@@ -26,7 +26,20 @@ namespace InkWriter.ViewModels.MainWindowCommands
 
         public void Execute(object parameter)
         {
-            this.mainWindow.GridType = this.mainWindow.GridType.Next();
+            switch (this.mainWindow.GridType)
+            {
+                case GridType.None:
+                    this.mainWindow.GridType = GridType.Lined;
+                    break;
+                case GridType.Lined:
+                    this.mainWindow.GridType = GridType.Checked;
+                    break;
+                case GridType.Checked:
+                    this.mainWindow.GridType = GridType.None;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("gridType", "Grid type is out of range.");
+            }
         }
     }
 }

@@ -168,7 +168,6 @@
     <Compile Include="Data\Child.cs" />
     <Compile Include="Data\EventHandler\ActivePageChangedEventArgs.cs" />
     <Compile Include="Data\EventHandler\PageModifiedEventArgs.cs" />
-    <Compile Include="Data\GridType.cs" />
     <Compile Include="Data\InkWriterDocument.cs" />
     <Compile Include="Data\InkWriterSettings.cs" />
     <Compile Include="Data\MailboxSettings.cs" />
