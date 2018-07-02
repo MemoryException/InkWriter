@@ -52,6 +52,8 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Safeguard.cs" />
+    <Compile Include="ShellFileInfo.cs" />
+    <Compile Include="WinApi.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TMSK.pfx" />

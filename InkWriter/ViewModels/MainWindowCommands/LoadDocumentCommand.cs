@@ -1,8 +1,8 @@
 ﻿using InkWriter.Data;
-using Microsoft.Win32;
 using System;
 using System.Windows.Input;
 using Utilities;
+using Wpf.Dialogs;
 
 namespace InkWriter.ViewModels.MainWindowCommands
 {
@@ -27,18 +27,18 @@ namespace InkWriter.ViewModels.MainWindowCommands
 
         public void Execute(object parameter)
         {
-            OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.Title = "Load document...";
-            fileDialog.Multiselect = false;
-            fileDialog.RestoreDirectory = true;
-            fileDialog.DefaultExt = "iwd";
-            fileDialog.AddExtension = true;
-            fileDialog.Filter = "InkWriterDocuments (*.iwd)|*.iwd";
-            if (fileDialog.ShowDialog() == true)
+            SearchPattern[] searchPatterns = new SearchPattern[]
             {
-                this.mainWindow.SetActiveDocument(InkWriterDocument.Load(fileDialog.FileName));
-            }
+                new SearchPattern("InkWriter-Dateien (*.iwd)", "*.iwd"),
+                new SearchPattern("Alle Dateien (*.*)", "*.*")
+            };
 
+            FileDialogResult result = FileDialog.Show("Open File...", searchPatterns, searchPatterns[0]);
+
+            if (result.Result == FileDialogResultEnum.OK)
+            {
+                this.mainWindow.SetActiveDocument(InkWriterDocument.Load(result.SelectedFile));
+            }
         }
     }
 }
