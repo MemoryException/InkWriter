@@ -36,11 +36,25 @@ namespace InkWriter.ViewModels.MainWindowCommands
                 return;
             }
 
-            Window window = new Window();
-            window.Opacity = 0;
-            Point upperLeftPoint = button.PointToScreen(new Point(0, 0));
-            window.Left = upperLeftPoint.X;
-            window.Top = upperLeftPoint.Y + 50;
+            Window window = new Window
+            {
+                Opacity = 0
+            };
+
+            Point upperLeftPoint = button.PointToScreen(new Point(0, button.Height));
+            PresentationSource presentationSource = PresentationSource.FromVisual(button);
+            double dpiX = presentationSource.CompositionTarget.TransformToDevice.M11;
+            double dpiY = presentationSource.CompositionTarget.TransformToDevice.M22;
+            window.Left = upperLeftPoint.X / dpiX;
+            window.Top = upperLeftPoint.Y / dpiY;
+
+            if (button.Parent is StackPanel parentStackPanel)
+            {
+                Point rightPoint = parentStackPanel.PointToScreen(new Point(parentStackPanel.ActualWidth, 0));
+                double rightBorder = rightPoint.X / dpiX;
+                window.MaxWidth = rightBorder - window.Left;
+            }
+
             window.WindowStyle = WindowStyle.None;
             window.ResizeMode = ResizeMode.NoResize;
             window.SizeToContent = SizeToContent.WidthAndHeight;

@@ -106,7 +106,7 @@ namespace InkWriter.ViewModels
             System.Windows.Ink.RecognitionConfidence? lowestConfidence = null;
             System.Windows.Ink.ApplicationGesture? applicationGesture = null;
 
-            foreach (var gestureResult in gestureResults)
+            foreach (GestureRecognitionResult gestureResult in gestureResults)
             {
                 if (lowestConfidence == null || gestureResult.RecognitionConfidence < lowestConfidence)
                 {
