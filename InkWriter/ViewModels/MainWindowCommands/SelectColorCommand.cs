@@ -16,7 +16,7 @@ namespace InkWriter.ViewModels.MainWindowCommands
 
         protected override Func<MainWindowViewModel, Window, UserControl> ViewFunction => new Func<MainWindowViewModel, Window, UserControl>((MainWindowViewModel mainWindowViewModel, Window window) =>
         {
-            return new Views.SelectColorView() { DataContext = new ViewModels.SelectColorViewModel(mainWindowViewModel.InkCanvas, new List<Color> { Colors.LightGray, Colors.Blue, Colors.Green, Colors.Red }, window) };
+            return new Views.SelectColorView() { DataContext = new SelectColorViewModel(mainWindowViewModel.InkCanvas, new List<Color> { Colors.LightGray, Colors.Blue, Colors.Green, Colors.Red }, window) };
         });
     }
 }

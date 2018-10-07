@@ -15,7 +15,7 @@ namespace InkWriter.ViewModels.MainWindowCommands
 
         protected override Func<MainWindowViewModel, Window, UserControl> ViewFunction => new Func<MainWindowViewModel, Window, UserControl>((MainWindowViewModel mainWindowViewModel, Window window) =>
         {
-            return new Views.SelectWidthView() { DataContext = new ViewModels.SelectWidthViewModel(mainWindowViewModel.InkCanvas, new List<double> { 1, 2, 3, 5, 10, 15, 25, 50, 100 }, window) };
+            return new Views.SelectWidthView() { DataContext = new SelectWidthViewModel(mainWindowViewModel.InkCanvas, new List<double> { 1, 2, 3, 5, 10, 15, 25, 50, 100 }, window) };
         });
 
     }
