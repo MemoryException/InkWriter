@@ -1,37 +1,19 @@
-## Welcome to GitHub Pages
+# InkWriter
 
-You can use the [editor on GitHub](https://github.com/MemoryException/InkWriter/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+## Genesis
+The idea for InkWriter was created after I have purchased an Microsoft Surface Pro tablet, which comes with a stylus. The stylus support of OneNote was not satisfactional for me, because it was unable to distinguish between hand and stylus. When I tried to use the Surface as an digital note book, strokes were placed when I touched the Surface while painting with the stylus.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+I thought: "That must be better."
 
-### Markdown
+Because of this, I started developing InkWriter. It distinguishes between touches by hand and using the styules in a reliable manner. A big advance to OneNote from my point of view. I concentrated to develop something that provides the following core features:
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+* Distinguish reliable between hand touch and stylus usage
+* Take notes
+* Take pictures and correct the perspective with the Surface's built in camera
+* Export taken notes to PDF
 
-```markdown
-Syntax highlighted code block
+These four core requirements made InkWriter for me a very usable tool. Of sure, it would be possible to recognize the strokes and translate them into plain text. Not only for conversion, but for searching. But I found out, that I did not need this functionality.
 
-# Header 1
-## Header 2
-### Header 3
+If the need exists, I will implement appropriate functionality. Just let me know.
 
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/MemoryException/InkWriter/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Feel free to test InkWriter on your own and please provide some feedback.
