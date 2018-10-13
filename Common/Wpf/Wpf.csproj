@@ -75,7 +75,6 @@
     <Compile Include="Dialogs\Places.cs" />
     <Compile Include="Dialogs\PlaceType.cs" />
     <Compile Include="Dialogs\SearchPattern.cs" />
-    <Compile Include="DpiUtilities.cs" />
     <Compile Include="GridCanvas.cs" />
     <Compile Include="GridType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

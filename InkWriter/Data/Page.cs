@@ -1,7 +1,6 @@
 ﻿using InkWriter.Data.EventHandler;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,7 +8,6 @@ using System.Windows.Ink;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml.Serialization;
-using Wpf;
 
 namespace InkWriter.Data
 {
@@ -63,22 +61,20 @@ namespace InkWriter.Data
                 }
             }
 
-            double screenDpi = DpiUtilities.DesktopDpiX;
-            double desiredDpi = 300;
-            double scale = desiredDpi / screenDpi;
+            double scale = 3;
 
             inkCanvas.Width = bottomRightCorner.X * scale;
             inkCanvas.Height = bottomRightCorner.Y * scale;
 
-            inkCanvas.RenderTransform = new ScaleTransform(scale, scale);
+            inkCanvas.Measure(inkCanvas.RenderSize);
             inkCanvas.Arrange(new Rect(0, 0, bottomRightCorner.X, bottomRightCorner.Y));
             inkCanvas.UpdateLayout();
 
             RenderTargetBitmap bitmap = new RenderTargetBitmap(
                 (int)inkCanvas.RenderSize.Width,
                 (int)inkCanvas.RenderSize.Height,
-                screenDpi,
-                screenDpi,
+                96 * scale,
+                96 * scale,
                 PixelFormats.Pbgra32);
 
             bitmap.Render(inkCanvas);
@@ -91,27 +87,6 @@ namespace InkWriter.Data
             }
 
             return bitmap;
-        }
-
-        public void SaveAsJpg(string fileName)
-        {
-            JpegBitmapEncoder jpg = new JpegBitmapEncoder();
-            jpg.Frames.Add(BitmapFrame.Create(this.GetBitmap(Orientation.Horizontal)));
-            using (Stream stm = File.Create(fileName))
-            {
-                jpg.Save(stm);
-            }
-        }
-
-        private Bitmap rotateImage90(Bitmap b)
-        {
-            Bitmap returnBitmap = new Bitmap(b.Height, b.Width);
-            Graphics g = Graphics.FromImage(returnBitmap);
-            g.TranslateTransform((float)b.Width / 2, (float)b.Height / 2);
-            g.RotateTransform(90);
-            g.TranslateTransform(-(float)b.Width / 2, -(float)b.Height / 2);
-            g.DrawImage(b, new System.Drawing.Point(0, 0));
-            return returnBitmap;
         }
 
         public event EventHandler<PageModifiedEventArgs> PageModified;

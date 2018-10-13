@@ -1,7 +1,7 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Windows.Input;
 using Utilities;
+using Wpf.Dialogs;
 
 namespace InkWriter.ViewModels.CapturePictureCommands
 {
@@ -34,15 +34,17 @@ namespace InkWriter.ViewModels.CapturePictureCommands
 
         public void Execute(object parameter)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Title = "Open Image...";
-            openFileDialog.RestoreDirectory = true;
-            openFileDialog.DefaultExt = "jpg";
-            openFileDialog.AddExtension = true;
-            openFileDialog.Filter = "JPEG-Images (*.jpg)|*.jpg";
-            if (openFileDialog.ShowDialog() == true)
+            SearchPattern[] searchPatterns = new SearchPattern[]
             {
-                this.viewModel.LoadImage(openFileDialog.FileName);
+                new SearchPattern("Jpegs (*.jpg)", "*.jpg"),
+                new SearchPattern("All files (*.*)", "*.*")
+            };
+
+            FileDialogResult result = FileDialog.Show("Open File...", searchPatterns, searchPatterns[0]);
+
+            if (result.Result == FileDialogResultEnum.OK)
+            {
+                this.viewModel.LoadImage(result.SelectedFile);
             }
         }
     }

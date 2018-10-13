@@ -65,10 +65,13 @@ namespace InkWriter.ViewModels.MainWindowCommands
                             });
                             break;
                         case PageRangeSelection.AllPages:
-                            foreach (Data.Page page in this.document.Pages)
+                            Application.Current.InvokeOnGui(DispatcherPriority.Normal, () =>
                             {
-                                fixedDocument.Pages.Add(this.GetPageContent(printDialog, page.GetBitmap(orientation)));
-                            }
+                                foreach (Data.Page page in this.document.Pages)
+                                {
+                                    fixedDocument.Pages.Add(this.GetPageContent(printDialog, page.GetBitmap(orientation)));
+                                }
+                            });
                             break;
                         case PageRangeSelection.UserPages:
                             Application.Current.InvokeOnGui(DispatcherPriority.Normal, () =>
@@ -108,6 +111,8 @@ namespace InkWriter.ViewModels.MainWindowCommands
 
             Image pageImage = new Image();
             pageImage.BeginInit();
+            FixedPage.SetLeft(pageImage, pageContent.Width * 0.05);
+            FixedPage.SetTop(pageImage, pageContent.Height * 0.05);
             pageImage.Stretch = System.Windows.Media.Stretch.Uniform;
             pageImage.Width = pageContent.Width * 0.9;
             pageImage.Height = pageContent.Height * 0.9;
@@ -115,6 +120,9 @@ namespace InkWriter.ViewModels.MainWindowCommands
             pageImage.VerticalAlignment = VerticalAlignment.Center;
             pageImage.Source = bitmapSource;
             pageImage.EndInit();
+
+            pageImage.Measure(pageContent.RenderSize);
+            pageImage.UpdateLayout();
 
             pageContent.Child.Children.Add(pageImage);
 
